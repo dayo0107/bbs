@@ -6,6 +6,8 @@ import com.dayo.pojo.User;
 import com.dayo.service.PostService;
 import com.dayo.service.ReplyService;
 import com.dayo.service.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,8 @@ public class ReplyController {
     public String addReply(@RequestParam("pid") int pid , Reply reply , HttpSession session , Model model){
         try {
             Post post = postService.get(pid);
-            User user = (User) session.getAttribute("user");
+            Subject subject = SecurityUtils.getSubject();
+            User user = userService.get(subject.getPrincipal().toString());
             Date date = new Date();
 
             reply.setPid(pid);

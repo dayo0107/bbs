@@ -48,12 +48,13 @@ public class RegisterController {
 
         //用户名唯一
         User userInDB = userService.get(user.getUsername());
-        if(null != userInDB && userInDB.getState() == State.ACTIVATION){
+        if(null != userInDB && userInDB.getState() != State.INACTIVATION){
             model.addAttribute("msg","用户名已存在");
             return "result";
         }
         if(null != userInDB && userInDB.getState() == State.INACTIVATION)
             userIsINACTIVATION = true;
+
         //邮箱唯一暂不设置 便于测试
 
         //生成激活码,md5password,salt,和设置状态
@@ -62,13 +63,15 @@ public class RegisterController {
         String code = UUID.randomUUID().toString();
         String md5code =new Md5Hash(code+format.format(new Date())).toString();
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+
         user.setCode(md5code);
         user.setSalt(salt);
         user.setState(State.INACTIVATION);
         user.setPassword(new SimpleHash("md5",user.getPassword(),salt,2).toString());//MD5加密密码
+
         //保存到数据库
         try {
-                if (userIsINACTIVATION) {
+                if (userIsINACTIVATION) {     //注册过但未激活则更新激活码
                     user.setId(userInDB.getId());
                     userService.update(user);
                 }
@@ -85,6 +88,7 @@ public class RegisterController {
             return "result";
         }
     }
+
 
     //通过邮件链接激活
     @RequestMapping("active")
