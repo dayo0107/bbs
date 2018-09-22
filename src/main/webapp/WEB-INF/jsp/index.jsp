@@ -20,7 +20,7 @@
 
             <div style="margin-bottom: 15px"></div>
 
-            <a href="register">注册新账号 (需要登陆)</a><br>
+            <a href="register">注册新账号</a><br>
             <a href="${pageContext.request.contextPath}/home">BBS (需要登陆)</a>
         </div>
 

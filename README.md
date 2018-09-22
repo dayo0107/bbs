@@ -1,9 +1,8 @@
-#简易BBS论坛
-    
-   ##环境
-    SSM + shiro
-     
-   ##bbs功能
+# 简易BBS论坛
+  
+## 环境
+    SSM + shiro  
+## bbs功能
     发布主题
     回帖
     模糊搜索主题
