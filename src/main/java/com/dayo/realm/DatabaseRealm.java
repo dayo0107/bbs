@@ -2,6 +2,8 @@ package com.dayo.realm;
 
 import com.dayo.pojo.State;
 import com.dayo.pojo.User;
+import com.dayo.service.PermissionService;
+import com.dayo.service.RoleService;
 import com.dayo.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -14,17 +16,37 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Set;
+
 /**
  * @author DayoWong on 2018/9/20
  */
 public class DatabaseRealm extends AuthorizingRealm {
     @Autowired
     UserService userService;
+    @Autowired
+    RoleService roleService;
+    @Autowired
+    PermissionService permissionService;
+
+    //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return new SimpleAuthorizationInfo();
+        //能进入到这里，表示账号已经通过验证了
+        String username = (String) principalCollection.getPrimaryPrincipal();
+        //通过service获取用户拥有的角色和授权
+        Set<String> roleNames = roleService.listRoleNames(username);
+        Set<String> permissions = permissionService.listPermissions(username);
+        //授权对象
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        if (roleNames!=null && permissions !=null) {
+            info.setRoles(roleNames);
+            info.setStringPermissions(permissions);
+        }
+        return info;
     }
 
+    //认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 

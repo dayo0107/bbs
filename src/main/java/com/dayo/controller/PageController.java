@@ -28,7 +28,7 @@ public class PageController {
         List<Post> posts = postService.list();
         for (Post p :
                 posts) {
-            p.setReplyNum(replyService.listByPid(p.getId()).size());
+            p.setReplyNum(replyService.listByPid(p.getId()).size());//bug 多余的搜索reply
         }
         model.addAttribute("posts",posts);
         return "bbs/home";
@@ -42,6 +42,11 @@ public class PageController {
     @RequestMapping("register")
     public String register(){
         return "register";
+    }
+
+    @RequestMapping("unauthorized")
+    public String unauthorized(){
+        return "unauthorized";
     }
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
