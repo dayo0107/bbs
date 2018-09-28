@@ -56,7 +56,7 @@ public class PostController {
         return "redirect:/home";
     }
 
-    @RequestMapping("/post")
+    @RequestMapping("/showPost")
     public String Post(@RequestParam("pid") int pid , Model model , HttpSession session ,Page page){
 
         Post post = postService.get(pid);

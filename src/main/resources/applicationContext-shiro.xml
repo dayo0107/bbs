@@ -13,7 +13,7 @@
     http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- url过滤器 -->
-    <!--<bean id="urlPathMatchingFilter" class="com.dayo.filter.URLPathMatchingFilter"/>-->
+    <bean id="urlPathMatchingFilter" class="com.dayo.filter.URLPathMatchingFilter"/>
 
     <!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -27,7 +27,7 @@
         <property name="filters">
             <util:map>
                 <entry key="logout" value-ref="logoutFilter" />
-                <!--<entry key="url" value-ref="urlPathMatchingFilter" />-->
+                <entry key="url" value-ref="urlPathMatchingFilter" />
             </util:map>
         </property>
         <!-- 权限配置 -->
@@ -38,15 +38,17 @@
                 /index=anon
                 /login=anon
                 /register=anon
-                <!--/register=anon-->
-                /static/**=anon
-                <!--要求角色，权限-->
-                /admin=authc,roles[admin]
+                /result=anon
+                /unauthorized=anon
                 /doLogout=logout
-                <!--所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过过滤器url -->
-                <!--/** = url-->
+                <!--静态资源-->
+                /static/**=anon
+                <!--要求登陆、角色、权限-->
+                /admin=authc,roles[admin]
+                <!--所有的请求，如果未登录则跳到/login。(除去配置的静态资源请求或请求地址为anon的请求)都要通过过滤器url,-->
+                /** = url
                 <!--所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过登录验证,如果未登录则跳到/login -->
-                /** = authc
+                <!--/** = authc-->
             </value>
         </property>
     </bean>

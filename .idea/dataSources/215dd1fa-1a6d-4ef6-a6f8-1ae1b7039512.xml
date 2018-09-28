@@ -1390,6 +1390,8 @@
     <column id="334" parent="290" name="rid">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;2&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="335" parent="290" name="PRIMARY">

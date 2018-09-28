@@ -8,7 +8,7 @@
 
 <div class="showing">
 
-    权限不足,具体原因：${ex.message}
+    权限不足：${ex.message}
     <br>
     <a href="#" onClick="history.back()">返回</a>
 </div>

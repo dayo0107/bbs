@@ -3,6 +3,7 @@ package com.dayo.controller;
 import com.dayo.pojo.Post;
 import com.dayo.pojo.Reply;
 import com.dayo.pojo.User;
+import com.dayo.pojo.UserStates;
 import com.dayo.service.PostService;
 import com.dayo.service.ReplyService;
 import com.dayo.service.UserService;
@@ -22,7 +23,7 @@ import java.util.Date;
  * @author DayoWong on 2018/9/21
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/post")
 public class ReplyController {
     @Autowired
     ReplyService replyService;
@@ -33,10 +34,10 @@ public class ReplyController {
 
     @RequestMapping("/addReply")
     public String addReply(@RequestParam("pid") int pid , Reply reply , HttpSession session , Model model){
+        User user = (User) session.getAttribute("user");
         try {
             Post post = postService.get(pid);
-            Subject subject = SecurityUtils.getSubject();
-            User user = userService.get(subject.getPrincipal().toString());
+
             Date date = new Date();
 
             reply.setPid(pid);
@@ -53,6 +54,6 @@ public class ReplyController {
             return "result";
         }
 
-        return "redirect:/home/post?pid="+pid;
+        return "redirect:/home/showPost?pid="+pid;
     }
 }

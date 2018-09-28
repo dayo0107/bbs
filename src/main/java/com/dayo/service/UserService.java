@@ -13,6 +13,7 @@ public interface UserService {
     int update(User user);
     User get(String username);
     User getByCode(String code);
-
     User getById(Integer uid);
+
+    List<User> list();
 }

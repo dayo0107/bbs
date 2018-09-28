@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +48,7 @@
                 <td><pre>${r.content}</pre></td>
             </tr>
             <tr class="info" >
-                <td></td>
+                <td><shiro:hasRole name="admin"><a href="${pageContext.request.contextPath}/index">del</a></shiro:hasRole></td>
                 <td >
                     <font color="blue"> ${r.user.username}</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <font color="#999999">${r.createDate}</font>
@@ -65,7 +65,7 @@
         <a href="?start=${page.last}${page.param}">末  页</a>
     </div>
 
-    <form action="${pageContext.request.contextPath}/addReply" >
+    <form action="${pageContext.request.contextPath}/post/addReply" >
         <table class="t_post">
             <tr>
                 <td>

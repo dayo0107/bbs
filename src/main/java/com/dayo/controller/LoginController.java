@@ -29,6 +29,7 @@ public class LoginController {
             Session session = subject.getSession();
             User user = userService.get(subject.getPrincipal().toString());
             session.setAttribute("subject",subject);
+            session.setAttribute("user",user);
 //            model.addAttribute("msg","登陆成功");
             return "redirect:/home";
         } catch (AuthenticationException e) {

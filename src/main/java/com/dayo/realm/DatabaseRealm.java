@@ -1,7 +1,7 @@
 package com.dayo.realm;
 
-import com.dayo.pojo.State;
 import com.dayo.pojo.User;
+import com.dayo.pojo.UserStates;
 import com.dayo.service.PermissionService;
 import com.dayo.service.RoleService;
 import com.dayo.service.UserService;
@@ -54,7 +54,7 @@ public class DatabaseRealm extends AuthorizingRealm {
         String userName= authenticationToken.getPrincipal().toString();
         //获取数据库中的密码
         User user =userService.get(userName);
-        if (user.getState()==State.INACTIVATION)
+        if (user.getState()==UserStates.INACTIVATION)
             return null;
         String passwordInDB = user.getPassword();
         String salt = user.getSalt();

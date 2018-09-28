@@ -8,6 +8,8 @@ import com.dayo.pojo.User;
  */
 public interface UserRoleService {
     void setRoles(User user, int[] roleIds);
+    void updateRole(User user ,int State);
+    void addRole(User user ,int State);
     void deleteByUser(int userId);
     void deleteByRole(int roleId);
 }

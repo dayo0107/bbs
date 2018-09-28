@@ -37,6 +37,28 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
+    public void updateRole(User user, int State) {
+        UserRoleExample example= new UserRoleExample();
+        example.createCriteria().andUidEqualTo(user.getId());
+        List<UserRole> urs= userRoleMapper.selectByExample(example);
+        if(urs!=null){
+            if(urs.get(0) != null){
+                urs.get(0).setRid(State);
+                userRoleMapper.updateByPrimaryKeySelective(urs.get(0));
+            }
+        }
+    }
+
+    @Override
+    public void addRole(User user, int State) {
+        UserRole userRole = new UserRole();
+        userRole.setRid(State);
+        userRole.setUid(user.getId());
+        userRoleMapper.insert(userRole);
+    }
+
+
+    @Override
     public void deleteByUser(int userId) {
         UserRoleExample example = new UserRoleExample();
         example.createCriteria().andUidEqualTo(userId);

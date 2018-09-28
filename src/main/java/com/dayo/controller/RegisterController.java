@@ -1,7 +1,8 @@
 package com.dayo.controller;
 
-import com.dayo.pojo.State;
+import com.dayo.pojo.UserStates;
 import com.dayo.pojo.User;
+import com.dayo.service.UserRoleService;
 import com.dayo.service.UserService;
 import com.dayo.util.MailUtil;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
@@ -27,6 +28,8 @@ public class RegisterController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    UserRoleService userRoleService;
 
     //注册 发送激活邮件
     @RequestMapping("addUser")
@@ -48,11 +51,11 @@ public class RegisterController {
 
         //用户名唯一
         User userInDB = userService.get(user.getUsername());
-        if(null != userInDB && userInDB.getState() != State.INACTIVATION){
+        if(null != userInDB && userInDB.getState() != UserStates.INACTIVATION){
             model.addAttribute("msg","用户名已存在");
             return "result";
         }
-        if(null != userInDB && userInDB.getState() == State.INACTIVATION)
+        if(null != userInDB && userInDB.getState() == UserStates.INACTIVATION)
             userIsINACTIVATION = true;
 
         //邮箱唯一暂不设置 便于测试
@@ -66,7 +69,7 @@ public class RegisterController {
 
         user.setCode(md5code);
         user.setSalt(salt);
-        user.setState(State.INACTIVATION);
+        user.setState(UserStates.INACTIVATION);
         user.setPassword(new SimpleHash("md5",user.getPassword(),salt,2).toString());//MD5加密密码
 
         //保存到数据库
@@ -99,13 +102,14 @@ public class RegisterController {
         User user = userService.getByCode(md5code);
 
         if (null != user){
-            if(user.getState() == State.ACTIVATION){
+            if(user.getState() == UserStates.ACTIVATION){
                 model.addAttribute("msg", "账户已经激活");
                 return "result";
             }
-            user.setState(State.ACTIVATION);
+            user.setState(UserStates.ACTIVATION);
             try {
                 if(userService.update(user) != 0) {
+                    userRoleService.addRole(user,UserStates.ACTIVATION);//增加用户 普通权限
                     model.addAttribute("msg", "账户激活成功");
                     return "result";
                 }
