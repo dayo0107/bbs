@@ -7,6 +7,8 @@ import com.dayo.pojo.UserRoleExample;
 import com.dayo.service.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +20,8 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Autowired
     UserRoleMapper userRoleMapper;
     @Override
+
+    @Transactional(propagation=Propagation.REQUIRED,rollbackForClassName="Exception")
     public void setRoles(User user, int[] roleIds) {
         //删除当前用户所有的角色
         UserRoleExample example= new UserRoleExample();

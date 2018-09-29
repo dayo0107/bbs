@@ -1368,6 +1368,7 @@
       <Position>7</Position>
       <Comment>盐</Comment>
       <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <key id="331" parent="289" name="PRIMARY">

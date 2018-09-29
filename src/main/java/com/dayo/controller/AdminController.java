@@ -10,6 +10,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +48,7 @@ public class AdminController {
     }
 
     @RequestMapping("banUser")
+    @Transactional(propagation=Propagation.REQUIRED,rollbackForClassName="Exception")
     public String banUser(@RequestParam int id ){
         User user = userService.getById(id);
         user.setState(UserStates.BANNED);
@@ -56,6 +59,7 @@ public class AdminController {
     }
 
     @RequestMapping("muteUser")
+    @Transactional(propagation=Propagation.REQUIRED,rollbackForClassName="Exception")
     public String muteUser(@RequestParam int id){
         User user = userService.getById(id);
         user.setState(UserStates.MUTE);
@@ -66,6 +70,7 @@ public class AdminController {
     }
 
     @RequestMapping("releaseUser")
+    @Transactional(propagation=Propagation.REQUIRED,rollbackForClassName="Exception")
     public String releaseUser(@RequestParam int id){
         User user = userService.getById(id);
         user.setState(UserStates.RELEASE);
@@ -76,9 +81,10 @@ public class AdminController {
     }
     /*前台管理员操作*/
     @RequestMapping("muteFore")
+    @Transactional(propagation=Propagation.REQUIRED,rollbackForClassName="Exception")
     public String mute(@RequestParam int pid ,@RequestParam int uid){
         User user = userService.getById(uid);
-        if(user.getState()!=UserStates.ADMIN) {//防止管理员点到自己
+        if(user.getState()!=UserStates.ADMIN) {//防止管理员点击到自己
             user.setState(UserStates.MUTE);
 
             userRoleService.updateRole(user, UserStates.MUTE);

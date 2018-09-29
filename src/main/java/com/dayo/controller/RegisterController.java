@@ -10,6 +10,8 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -95,6 +97,7 @@ public class RegisterController {
 
     //通过邮件链接激活
     @RequestMapping("active")
+    @Transactional(propagation=Propagation.REQUIRED,rollbackForClassName="Exception")
     public String active(Model model , @RequestParam("code") String code){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-mm");
         System.out.println(format.format(new Date()));
@@ -108,11 +111,11 @@ public class RegisterController {
             }
             user.setState(UserStates.ACTIVATION);
             try {
-                if(userService.update(user) != 0) {
-                    userRoleService.addRole(user,UserStates.ACTIVATION);//增加用户 普通权限
-                    model.addAttribute("msg", "账户激活成功");
-                    return "result";
-                }
+                userService.update(user);                           //更新用户State
+                userRoleService.addRole(user,UserStates.ACTIVATION);//增加用户 普通权限
+                model.addAttribute("msg", "账户激活成功");
+                return "result";
+
             } catch (Exception e) {
                 e.printStackTrace();
                 model.addAttribute("msg","数据更新失败");
