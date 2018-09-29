@@ -15,4 +15,6 @@ public interface PostService {
     List<Post> list();
     List<Post> listByUid(Integer uid);
     List<Post> listByKeyword(String keyword);
+
+    List<Post> listByTime();
 }

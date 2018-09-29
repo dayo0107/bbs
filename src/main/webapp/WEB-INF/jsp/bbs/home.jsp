@@ -19,32 +19,29 @@
     <!-- 主题列表 -->
     <table class="t_center">
         <tbody >
-            <!--显示表头-->
             <tr class="biaotou">
                 <td width="40">编号</td>
                 <td width="40">回复</td>
-                <td width="500">标题</td>
-                <td width="110">作者</td>
+                <td width="500">标题 <a href="${pageContext.request.contextPath}/home/listPostT">最后回复时间</a> <a href="/home">发布时间</a> </td>
+                <td width="110">发布</td>
                 <td width="145">最后回复时间</td>
             </tr>
-                <!-- 显示主题列表 -->
                 <c:forEach items="${posts}" var="p">
                 <tr class="data">
                     <td >${p.id} </td>
                     <td >${p.replyNum}</td>
                     <td><a href="${pageContext.request.contextPath}/home/showPost?pid=${p.id}">${p.title}</a></td>
-                    <td >${p.uid}</td>
+                    <td >${p.user.username}</td>
                     <td >${p.lastDate}</td>
                 </tr>
                 </c:forEach>
             <tr>
-                <td colspan="5" class="num">共有主题数<font color="red">list.size</font>个</td>
+                <td colspan="5" align="right" class="red">共有主题数${posts.size()}个</td>
             </tr>
         </tbody>
     </table>
 
-    <div style="margin-bottom: 15px"></div>
-    <!--发表主题表单-->
+    <!--发布主题表单-->
     <form action="${pageContext.request.contextPath}/home/addPost">
         <table class="t_post">
             <tr>

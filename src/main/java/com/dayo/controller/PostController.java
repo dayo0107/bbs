@@ -9,7 +9,6 @@ import com.dayo.service.UserService;
 import com.dayo.util.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +29,9 @@ public class PostController {
     @Autowired
     PostService postService;
     @Autowired
-    UserService userService;
-    @Autowired
     ReplyService replyService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/addPost")
     public String addPost(HttpSession session, Post post ,Model model){
@@ -75,4 +74,24 @@ public class PostController {
         model.addAttribute("post", post);
         return "bbs/post";
     }
+
+    @RequestMapping("/deletePost")
+    public String deletePost(@RequestParam int pid){
+        postService.delete(pid);
+        return "redirect:/home";
+    }
+
+    @RequestMapping("/listPostT")
+    public String listPostByLastReplyTime(Model model){
+        List<Post> posts = postService.listByTime();
+        for (Post p :
+                posts) {
+            p.setUser(userService.getById(p.getUid()));
+            p.setReplyNum(replyService.count(p.getId()));
+        }
+        model.addAttribute("posts",posts);
+        return "bbs/home";
+    }
+
+
 }

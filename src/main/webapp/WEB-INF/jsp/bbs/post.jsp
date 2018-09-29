@@ -20,7 +20,7 @@
     <!-- 显示主题 -->
     <table class="t_post" cellspacing="0">
         <tr class="title">
-            <td >1楼</td>
+            <td width="10%">1楼</td>
             <td class="navBar">${post.title}</td>
         </tr>
         <tr>
@@ -28,14 +28,17 @@
             <td><pre>${post.content}</pre></td>
         </tr>
         <tr class="info">
-            <td ></td>
             <td >
-                <font color="blue">${post.user.username}</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <font color="#999999">${post.createDate}</font>
+                <shiro:hasRole name="admin">
+                    <a href="${pageContext.request.contextPath}/home/deletePost?pid=${post.id}">del</a>
+                </shiro:hasRole>
+            </td>
+            <td >
+                <span  class="green-r">${post.user.username}</span>
+                <span  class="grey-r">${post.createDate}</span>
             </td>
         </tr>
     </table>
-    <div style="margin-bottom: 15px"></div>
     <!-- 显示回复列表 -->
     <c:forEach items="${post.replies}" var="r" >
         <table class="t_post" cellspacing="0">
@@ -44,11 +47,11 @@
                 <td></td>
             </tr>
             <tr class="content">
-                <td></td>
+                <td width="10%"></td>
                 <td>
                     <c:choose>
                         <c:when test="${r.user.state == 2 || r.user.state == 1}"><pre>${r.content}</pre></c:when>
-                        <c:otherwise><pre>This account has been muted</pre></c:otherwise>
+                        <c:otherwise><pre class="red">This account has been muted</pre></c:otherwise>
                     </c:choose>
                 </td>
             </tr>
@@ -60,23 +63,22 @@
                 </td>
                 <td >
                     <shiro:hasRole name="admin">
-                        <a href="${pageContext.request.contextPath}/admin/muteFore?uid=${r.user.id}&pid=${post.id}">mute</a>&nbsp;&nbsp;
+                        <a href="${pageContext.request.contextPath}/admin/muteFore?uid=${r.user.id}&pid=${post.id}">&nbsp;&nbsp;mute</a>
                     </shiro:hasRole>
-                    <font color="#009999"> ${r.user.username}</font> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <font color="#999999">${r.createDate}</font>
+                    <span  class="green-r">${r.user.username}</span>
+                    <span  class="grey-r">${r.createDate}</span>
                 </td>
             </tr>
         </table>
-        <div style="margin-bottom: 15px"></div>
     </c:forEach>
-
+    <%--pageUtil--%>
     <div style="text-align:center">
         <a href="?start=0${page.param}">首  页</a>
         <a href="?start=${page.start-page.count}${page.param}">上一页</a>
         <a href="?start=${page.start+page.count}${page.param}">下一页</a>
         <a href="?start=${page.last}${page.param}">末  页</a>
     </div>
-
+    <%--回复主题--%>
     <form action="${pageContext.request.contextPath}/post/addReply" >
         <table class="t_post">
             <tr>

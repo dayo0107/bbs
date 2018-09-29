@@ -3,6 +3,7 @@ package com.dayo.controller;
 import com.dayo.pojo.Post;
 import com.dayo.service.PostService;
 import com.dayo.service.ReplyService;
+import com.dayo.service.UserService;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,12 +25,15 @@ public class PageController {
     PostService postService;
     @Autowired
     ReplyService replyService;
+    @Autowired
+    UserService userService;
     //直接访问的页面
     @RequestMapping("home")
     public String home(Model model ){
         List<Post> posts = postService.list();
         for (Post p :
                 posts) {
+            p.setUser(userService.getById(p.getUid()));
             p.setReplyNum(replyService.count(p.getId()));
         }
         model.addAttribute("posts",posts);

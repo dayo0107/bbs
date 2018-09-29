@@ -59,4 +59,11 @@ public class PostServiceImpl implements PostService {
         example.setOrderByClause("id desc");
         return postMapper.selectByExample(example);
     }
+
+    @Override
+    public List<Post> listByTime() {
+        PostExample example = new PostExample();
+        example.setOrderByClause("lastDate desc");
+        return postMapper.selectByExample(example);
+    }
 }

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"  pageEncoding="utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<div class="showing"style="margin: 15px auto; " >
+<div class="showing" >
     <!-- 搜索表单 -->
     <form action="${pageContext.request.contextPath}/search#search"   >
         <a href="${pageContext.request.contextPath}/home"><span class="navBar">hi!BBS</span></a>
