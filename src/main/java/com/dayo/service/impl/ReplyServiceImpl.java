@@ -62,4 +62,11 @@ public class ReplyServiceImpl implements ReplyService {
             r.setUser(userService.getById(r.getUid()));
         }
     }
+
+    @Override
+    public int count(int pid) {
+        return replyMapper.count(pid);
+    }
+
+
 }

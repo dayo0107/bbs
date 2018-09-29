@@ -30,7 +30,7 @@ public class PageController {
         List<Post> posts = postService.list();
         for (Post p :
                 posts) {
-            p.setReplyNum(replyService.listByPid(p.getId()).size());//bug 多余的搜索reply其他内容，应该建立中间表
+            p.setReplyNum(replyService.count(p.getId()));
         }
         model.addAttribute("posts",posts);
         return "bbs/home";

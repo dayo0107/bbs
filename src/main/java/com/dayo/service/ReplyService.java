@@ -15,4 +15,6 @@ public interface ReplyService {
     List<Reply> list();
     List<Reply> listByPid(Integer pid);
     void fillUser(List<Reply> replies);
+
+    int count(int pid);
 }

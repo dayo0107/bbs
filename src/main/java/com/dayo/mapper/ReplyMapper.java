@@ -2,6 +2,8 @@ package com.dayo.mapper;
 
 import com.dayo.pojo.Reply;
 import com.dayo.pojo.ReplyExample;
+import org.apache.ibatis.annotations.Select;
+
 import java.util.List;
 
 public interface ReplyMapper {
@@ -18,4 +20,7 @@ public interface ReplyMapper {
     int updateByPrimaryKeySelective(Reply record);
 
     int updateByPrimaryKey(Reply record);
+
+    @Select("select count(*) from reply where pid=#{pid}")
+    int count(int pid);
 }
