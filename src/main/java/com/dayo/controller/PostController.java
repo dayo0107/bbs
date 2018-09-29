@@ -1,6 +1,5 @@
 package com.dayo.controller;
 
-import com.dayo.mapper.ReplyMapper;
 import com.dayo.pojo.Post;
 import com.dayo.pojo.Reply;
 import com.dayo.pojo.User;
@@ -38,8 +37,7 @@ public class PostController {
     @RequestMapping("/addPost")
     public String addPost(HttpSession session, Post post ,Model model){
         try {
-            Subject subject= (Subject) session.getAttribute("subject");
-            User user = userService.get(subject.getPrincipal().toString());
+            User user =(User) session.getAttribute("user");
             if(user ==null )
                 return "redirect:/login";
 
@@ -61,10 +59,10 @@ public class PostController {
 
         Post post = postService.get(pid);
 
-        User user = userService.getById(post.getUid());
+        User user = (User) session.getAttribute("user");
         post.setUser(user);
 
-        PageHelper.offsetPage(page.getStart(),page.getCount());
+        PageHelper.offsetPage(page.getStart(), page.getCount());
         List<Reply> replies = replyService.listByPid(pid);
 
         replyService.fillUser(replies);
@@ -72,9 +70,9 @@ public class PostController {
         int total = (int) new PageInfo<>(replies).getTotal();
 
         page.setTotal(total);
-        page.setParam("&pid="+pid);
-        model.addAttribute("page",page);
-        model.addAttribute("post",post);
+        page.setParam("&pid=" + pid);
+        model.addAttribute("page", page);
+        model.addAttribute("post", post);
         return "bbs/post";
     }
 }

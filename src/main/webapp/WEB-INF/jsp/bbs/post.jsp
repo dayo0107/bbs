@@ -45,12 +45,24 @@
             </tr>
             <tr class="content">
                 <td></td>
-                <td><pre>${r.content}</pre></td>
+                <td>
+                    <c:choose>
+                        <c:when test="${r.user.state == 2 || r.user.state == 1}"><pre>${r.content}</pre></c:when>
+                        <c:otherwise><pre>This account has been muted</pre></c:otherwise>
+                    </c:choose>
+                </td>
             </tr>
             <tr class="info" >
-                <td><shiro:hasRole name="admin"><a href="${pageContext.request.contextPath}/index">del</a></shiro:hasRole></td>
+                <td>
+                    <shiro:hasRole name="admin">
+                        <a href="${pageContext.request.contextPath}/post/deleteReply?rid=${r.id}&pid=${post.id}">del</a>
+                    </shiro:hasRole>
+                </td>
                 <td >
-                    <font color="blue"> ${r.user.username}</font> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <shiro:hasRole name="admin">
+                        <a href="${pageContext.request.contextPath}/admin/muteFore?uid=${r.user.id}&pid=${post.id}">mute</a>&nbsp;&nbsp;
+                    </shiro:hasRole>
+                    <font color="#009999"> ${r.user.username}</font> &nbsp;&nbsp;&nbsp;&nbsp;
                     <font color="#999999">${r.createDate}</font>
                 </td>
             </tr>

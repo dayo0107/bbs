@@ -18,6 +18,9 @@ import java.util.List;
 
 /**
  * @author DayoWong on 2018/9/26
+ * bbs用户权限管理
+ *  1.后台管理员操作
+ *  2.前台管理员操作
  */
 @Controller
 @RequestMapping("admin")
@@ -28,6 +31,8 @@ public class AdminController {
     @Autowired
     UserRoleService userRoleService;
 
+
+    /*后台管理员操作*/
     @RequestMapping("")
     public String admin(Model model,Page page){
         PageHelper.offsetPage(page.getStart(),page.getCount());
@@ -69,13 +74,16 @@ public class AdminController {
         userService.update(user);
         return "redirect:/admin";
     }
+    /*前台管理员操作*/
+    @RequestMapping("muteFore")
+    public String mute(@RequestParam int pid ,@RequestParam int uid){
+        User user = userService.getById(uid);
+        if(user.getState()!=UserStates.ADMIN) {//防止管理员点到自己
+            user.setState(UserStates.MUTE);
 
-
-
-
-    @RequestMapping("listUser")
-    public String listUser(Model model){
-        model.addAttribute("msg","hi");
-        return "admin/listUser";
+            userRoleService.updateRole(user, UserStates.MUTE);
+            userService.update(user);
+        }
+        return "redirect:/home/showPost?pid="+pid;
     }
 }

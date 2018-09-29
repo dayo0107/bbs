@@ -47,6 +47,16 @@
         <property name="typeAliasesPackage" value="com.dayo.pojo" />
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <property name="configurationProperties">
+            <value>
+                <!-- 打开延迟加载的开关 -->
+                lazyLoadingEnabled=true
+                <!-- 将积极加载改为消息加载即按需加载 -->
+                aggressiveLazyLoading=false
+                cacheEnabled=true
+                <!--version 1.2 用户及所有权限表类增加二级缓存-->
+            </value>
+        </property>
        <!--分页插件-->
         <property name="plugins">
             <array>
@@ -66,9 +76,9 @@
         <property name="basePackage" value="com.dayo.mapper"/>
     </bean>
     <!--事务管理-->
-    <!--<tx:annotation-driven transaction-manager="transactionManager"/>-->
-    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-    <!--</bean>-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
 </beans>
