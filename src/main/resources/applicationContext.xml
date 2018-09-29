@@ -63,6 +63,7 @@
                 <bean class="com.github.pagehelper.PageInterceptor">
                     <property name="properties">
                         <value>
+                            <!--翻页合理化-->
                             reasonable=true
                         </value>
                     </property>
