@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +35,7 @@ public class RegisterController {
     UserRoleService userRoleService;
 
     //注册 发送激活邮件
-    @RequestMapping("addUser")
+    @RequestMapping(value = "addUser" ,method = RequestMethod.POST)
     public String addUser(Model model , User user){
 
         boolean userIsINACTIVATION =false;
@@ -82,7 +83,7 @@ public class RegisterController {
                 }
                 else
                     userService.add(user);
-                //保存或更新成功则通过线程的方式给用户发送一封邮件
+                //保存或更新成功则通过线程的方式给用户      !!!发送一封邮件!!!
                 new Thread( new MailUtil(user.getEmail(),code) ).start();
                 model.addAttribute("msg", "请到邮箱进行激活操作");
                 return "result";

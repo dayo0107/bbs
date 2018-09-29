@@ -37,7 +37,11 @@
                 /=anon
                 /index=anon
                 /login=anon
+
                 /register=anon
+                /addUser=anon
+                /active=anon
+
                 /result=anon
                 /unauthorized=anon
                 /doLogout=logout
