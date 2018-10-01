@@ -36,6 +36,7 @@ h2{
     color:#000080; /*字体深紫蓝*/
     box-shadow: 5px 5px 5px grey;
 }
+
 .t_post {
     width: 50%;
     margin: 5px auto;
@@ -91,4 +92,6 @@ h2{
     color: red;
 }
 
-
+.sendmail {
+    color: black;
+}

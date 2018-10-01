@@ -7,8 +7,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css" />
 
 <div class="showing">
-
-    权限不足：${ex.message}
+    <h2>权限不足</h2>
+    ${ex.message}
     <br>
     <a href="#" onClick="history.back()">返回</a>
 </div>

@@ -21,7 +21,7 @@
         <property name="securityManager" ref="securityManager" />
         <!-- 配置我们的登录请求地址 -->
         <property name="loginUrl" value="/login" />
-        <!-- 如果您请求的资源不再您的权限范围，则跳转到/403请求地址 -->
+        <!--&lt;!&ndash; 如果您请求的资源不再您的权限范围，则跳转到/403请求地址 &ndash;&gt;-->
         <property name="unauthorizedUrl" value="/unauthorized" />
         <!-- 退出 -->
         <property name="filters">
@@ -43,7 +43,7 @@
                 /active=anon
 
                 /result=anon
-                /unauthorized=anon
+                <!--登出-->
                 /doLogout=logout
                 <!--静态资源-->
                 /static/**=anon

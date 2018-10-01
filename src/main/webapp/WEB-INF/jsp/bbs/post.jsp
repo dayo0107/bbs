@@ -20,7 +20,7 @@
     <!-- 显示主题 -->
     <table class="t_post" cellspacing="0">
         <tr class="title">
-            <td width="10%">1楼</td>
+            <td width="10%">主楼</td>
             <td class="navBar">${post.title}</td>
         </tr>
         <tr>

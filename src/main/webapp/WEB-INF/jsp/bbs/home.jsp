@@ -40,7 +40,13 @@
             </tr>
         </tbody>
     </table>
-
+    <%--pageUtil 暂不使用--%>
+    <%--<div style="text-align:center">--%>
+        <%--<a href="?start=0${page.param}">首  页</a>--%>
+        <%--<a href="?start=${page.start-page.count}${page.param}">上一页</a>--%>
+        <%--<a href="?start=${page.start+page.count}${page.param}">下一页</a>--%>
+        <%--<a href="?start=${page.last}${page.param}">末  页</a>--%>
+    <%--</div>--%>
     <!--发布主题表单-->
     <form action="${pageContext.request.contextPath}/home/addPost">
         <table class="t_post">
