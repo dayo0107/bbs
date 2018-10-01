@@ -84,7 +84,7 @@ public class AdminController {
     @Transactional(propagation=Propagation.REQUIRED,rollbackForClassName="Exception")
     public String mute(@RequestParam int pid ,@RequestParam int uid){
         User user = userService.getById(uid);
-        if(user.getState()!=UserStates.ADMIN) {//防止管理员点击到自己
+        if(user.getState()!=UserStates.ADMIN && user.getState() != UserStates.BANNED) {//防止管理员点击到自己 和将封号等级账户提升为禁言等级
             user.setState(UserStates.MUTE);
 
             userRoleService.updateRole(user, UserStates.MUTE);
