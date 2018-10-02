@@ -15,7 +15,7 @@
             </c:if>
             <c:if test="${!empty subject.principal}">
                 <span class="desc">你好，${subject.principal}。</span>
-                <a href="doLogout">退出</a><br/>
+                <a href="${pageContext.request.contextPath}/doLogout">退出</a><br/>
             </c:if>
 
             <div style="margin-bottom: 15px"></div>

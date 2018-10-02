@@ -36,7 +36,9 @@
                 <!-- anon表示此地址不需要任何权限即可访问 -->
                 /=anon
                 /index=anon
+
                 /login=anon
+                /login/**=anon
 
                 /register=anon
                 /addUser=anon

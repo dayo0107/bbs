@@ -11,24 +11,51 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" media="all" href="${pageContext.request.contextPath}/static/css/style.css" />
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery/2.0.0/jquery.min.js"></script>
     <title>登陆</title>
+    <script>
+        $(function () {
+            $("input.send").click(function(){
+                var page = "/login/checkUsername";
+                var username = $("#username").val();
+                $.post(
+                    page,
+                    {"username":username},
+                    function(result){
+                        if("success"===result){
+                            window.location.href="/login/forget?username="+username;
+                        }
+                        else{
+                            $("#messageDiv").html("用户名不存在");
+                        }
+                    }
+                );
+            });
+            return false;
+        });
+    </script>
 </head>
 <body >
-<div class="showing">
-    <form method="POST" action="login">
-        <table class="t_center">
-            <tr>
-                <td><label for="username">用户名:</label></td>
-                <td><input type="text" name="username" id="username" placeholder="请勿分享账户" /></td>
-            </tr>
-            <tr>
-                <td><label for="password">密码:</label></td>
-                <td><input type="password" name="password" id="password" /></td>
-            </tr>
-                <td colspan="2" align="center"><input type="submit" value="登陆" /></td>
-            </tr>
-        </table>
-    </form>
-</div>
+    <div class="showing">
+        <form method="POST" action="login">
+            <table class="t_auto">
+                <tr>
+                    <td><label for="username">用户名:</label></td>
+                    <td><input type="text" name="username" id="username" placeholder="请勿分享账户" /></td>
+                </tr>
+                <tr>
+                    <td><label for="password">密码:</label></td>
+                    <td><input type="password" name="password" id="password" /></td>
+                </tr>
+                <tr>
+                    <td ><input type="submit" value="登陆" /></td>
+                    <td ><input class="send" type="button" value="忘记/修改密码" /></td>
+                </tr>
+            </table>
+        </form>
+
+        <div id="messageDiv" class="red"></div>
+
+    </div>
 </body>
 </html>

@@ -16,8 +16,7 @@
 <body>
 <div class="showing">
     <h2>hi!BBS: ${msg}</h2><br/>
-    <a href="index">目录</a>
-    <br/>
+    <a href="index">目录</a><br/>
     <a href="#" onClick="history.back()">返回</a>
 </div>
 </body>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <div class="showing" >
     <!-- 搜索表单 -->
-    <form action="${pageContext.request.contextPath}/search#search"   >
+    <form action="${pageContext.request.contextPath}/search"   >
         <a href="${pageContext.request.contextPath}/home"><span class="navBar">hi!BBS</span></a>
         <input type="text" name="keyword" placeholder="无关键字则返回主页">
         <input type="submit" value="搜 索" />
@@ -12,6 +12,6 @@
                     <span class="desc">你好，${subject.principal}。</span>
                     <a href="${pageContext.request.contextPath}/doLogout">退出</a>
                 </c:if>
-             </span>
+        </span>
     </form>
 </div>

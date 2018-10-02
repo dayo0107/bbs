@@ -105,21 +105,18 @@ public class RegisterController {
 
         // 这里可以验证各字段是否为空
         if (user.getUsername().isEmpty()||user.getPassword().isEmpty()){
-            String result = "用户名或密码不能为空！";
-            return result;
+            return "用户名或密码不能为空！";
         }
 
         //利用正则表达式（可改进）验证邮箱是否符合邮箱的格式
         if(!user.getEmail().matches("^\\w+@(\\w+\\.)+\\w+$")){
-            String result = "邮箱不符合格式！";
-            return result;
+            return "邮箱不符合格式！";
         }
 
         //用户名唯一
         User userInDB = userService.get(user.getUsername());
         if(null != userInDB && userInDB.getState() != UserStates.INACTIVATION){
-            String result = "用户名已存在";
-            return result;
+            return "用户名已存在";
         }
         if(null != userInDB && userInDB.getState() == UserStates.INACTIVATION)
             userIsINACTIVATION = true;
@@ -148,13 +145,11 @@ public class RegisterController {
                     userService.add(user);
                 //保存或更新成功则通过线程的方式给用户      !!!发送一封邮件!!!
                 new Thread( new MailUtil(user.getEmail(),code) ).start();
-                String result = "请到邮箱进行激活操作";
-                return result;
+            return "请到邮箱进行激活操作";
 
         } catch (Exception e) {
             e.printStackTrace();
-            String result = "数据保存失败";
-            return result;
+            return "数据保存失败";
         }
     }
     //通过邮件链接激活

@@ -36,7 +36,14 @@ h2{
     color:#000080; /*字体深紫蓝*/
     box-shadow: 5px 5px 5px grey;
 }
-
+.t_auto{
+    margin: 10px auto;
+    border-radius:10px;
+    border: 2px solid #ADD8E6;/*边框暗浅蓝色*/
+    background-color: #FFFFF0; /*背景色黄白*/
+    color:#000080; /*字体深紫蓝*/
+    box-shadow: 5px 5px 5px grey;
+}
 .t_post {
     width: 50%;
     margin: 5px auto;
@@ -93,5 +100,8 @@ h2{
 }
 
 .sendmail {
+    color: black;
+}
+.send {
     color: black;
 }
