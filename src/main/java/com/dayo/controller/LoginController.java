@@ -114,10 +114,13 @@ public class LoginController {
     }
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String login(Model model ,String username ,String password){
+    public String login(Model model ,String username ,String password ,Boolean rememberMe){
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        if(rememberMe == null)
+            rememberMe = false;
         try {
+            token.setRememberMe(rememberMe);
             subject.login(token);
             Session session = subject.getSession();
             User user = userService.get(subject.getPrincipal().toString());

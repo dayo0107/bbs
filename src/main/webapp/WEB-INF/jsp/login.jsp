@@ -48,6 +48,10 @@
                     <td><input type="password" name="password" id="password" /></td>
                 </tr>
                 <tr>
+                    <td></td>
+                    <td><label for="rememberMe">记住我</label><input type="checkbox" name="rememberMe" id="rememberMe" /></td>
+                </tr>
+                <tr>
                     <td ><input type="submit" value="登陆" /></td>
                     <td ><input class="send" type="button" value="忘记/修改密码" /></td>
                 </tr>

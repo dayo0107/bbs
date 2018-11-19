@@ -10,11 +10,11 @@
         <div class="showing">
         <h2>hi!BBS</h2><br/>
 
-            <c:if test="${empty subject.principal}">
+            <c:if test="${empty user.username}">
                 <a href="login">登录</a><br/>
             </c:if>
-            <c:if test="${!empty subject.principal}">
-                <span class="desc">你好，${subject.principal}。</span>
+            <c:if test="${!empty user.username}">
+                <span class="desc">你好，${user.username}。</span>
                 <a href="${pageContext.request.contextPath}/doLogout">退出</a><br/>
             </c:if>
 

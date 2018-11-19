@@ -8,8 +8,8 @@
         <input type="text" name="keyword" placeholder="无关键字则返回主页">
         <input type="submit" value="搜 索" />
         <span >
-                <c:if test="${!empty subject.principal}">
-                    <span class="desc">你好，${subject.principal}。</span>
+                <c:if test="${!empty user.username}">
+                    <span class="desc">你好，${user.username}。</span>
                     <a href="${pageContext.request.contextPath}/doLogout">退出</a>
                 </c:if>
         </span>
